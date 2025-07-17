@@ -17,7 +17,6 @@
 
         <quarkus.platform.version>3.24.2</quarkus.platform.version>
         <mapstruct.version>1.6.3</mapstruct.version>
-        <mockito-inline.version>5.2.0</mockito-inline.version>
         <lombok.version>1.18.38</lombok.version>
     </properties>
 
