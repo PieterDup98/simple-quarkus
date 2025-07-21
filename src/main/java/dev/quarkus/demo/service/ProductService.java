@@ -7,6 +7,7 @@ import dev.quarkus.demo.repository.ProductRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import java.util.List;
 
@@ -20,6 +21,9 @@ public class ProductService {
     @Inject
     private ProductMapper productMapper;
 
+    @ConfigProperty(name = "product.default-category", defaultValue = "unknown")
+    String defaultCategory;
+
     public List<ProductDto> getAllProducts() {
         return productRepository.listAll().stream()
                 .map(entity -> productMapper.toDto(entity))
@@ -29,6 +33,10 @@ public class ProductService {
     public ProductDto createProduct(ProductDto p) {
         ProductEntity newEntity = productMapper.toEntity(p);
         newEntity.setId(null);
+
+        if (p.category() == null) {
+            newEntity.setCategory(defaultCategory);
+        }
 
         productRepository.persist(newEntity);
 

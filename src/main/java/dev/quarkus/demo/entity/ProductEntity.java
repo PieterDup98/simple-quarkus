@@ -15,5 +15,6 @@ public class ProductEntity {
     public Long id;
 
     public String name;
+    public String category;
     public double price;
 }
